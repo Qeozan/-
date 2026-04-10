@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Template Tabs</title>
+  <title>Tabs Animation</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,64 +12,102 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #0a0f1f, #111827);
+      background:
+        radial-gradient(circle at top, #1e293b 0%, #0f172a 35%, #020617 100%);
       color: white;
+      min-height: 100vh;
     }
 
-    .wrapper {
-      max-width: 1200px;
+    .site {
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 30px 20px;
+      padding: 30px 20px 60px;
+    }
+
+    .top-title {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .top-pill {
+      min-width: 120px;
+      text-align: center;
+      padding: 14px 28px;
+      border-radius: 18px;
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.35);
+      opacity: 0;
+      transform: translateY(-20px) scale(0.92);
+      transition: all 0.45s ease;
+      pointer-events: none;
+    }
+
+    .top-pill.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
 
     .hero {
       text-align: center;
+      padding: 30px 0 10px;
+    }
+
+    .hero-sub {
+      color: #94a3b8;
+      font-size: 15px;
       margin-bottom: 30px;
-    }
-
-    .hero h1 {
-      margin: 0 0 10px;
-      font-size: 42px;
-    }
-
-    .hero p {
-      margin: 0;
-      color: #9ca3af;
-      font-size: 16px;
     }
 
     .tabs {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
       justify-content: center;
-      margin-bottom: 30px;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 35px;
+      transition: all 0.4s ease;
     }
 
     .tab-btn {
-      background: #1f2937;
-      color: white;
-      border: 1px solid #374151;
-      padding: 12px 22px;
-      border-radius: 14px;
+      border: none;
       cursor: pointer;
-      font-size: 15px;
-      transition: 0.2s;
+      min-width: 140px;
+      padding: 18px 28px;
+      border-radius: 22px;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: white;
+      background: rgba(30, 41, 59, 0.88);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.22);
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
     }
 
     .tab-btn:hover {
-      background: #2c3b52;
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      background: rgba(51, 65, 85, 0.95);
+      border-color: rgba(56, 189, 248, 0.45);
     }
 
     .tab-btn.active {
-      background: #2563eb;
-      border-color: #2563eb;
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      border-color: transparent;
+      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.35);
+    }
+
+    .content-wrap {
+      position: relative;
     }
 
     .tab-content {
       display: none;
-      animation: fade 0.25s ease;
+      animation: fadeUp 0.45s ease;
     }
 
     .tab-content.active {
@@ -77,42 +115,42 @@
     }
 
     .card {
-      background: rgba(17, 24, 39, 0.95);
-      border: 1px solid #2f3a4d;
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      margin-bottom: 20px;
+      background: rgba(15, 23, 42, 0.88);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: 26px;
+      padding: 28px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(10px);
     }
 
-    .card h2 {
-      margin-top: 0;
-      font-size: 28px;
+    .section-title {
+      margin: 0 0 18px;
+      font-size: 24px;
     }
 
     .placeholder {
-      min-height: 180px;
-      border: 2px dashed #4b5563;
-      border-radius: 16px;
+      min-height: 220px;
+      border: 2px dashed rgba(148, 163, 184, 0.3);
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #9ca3af;
-      margin-top: 20px;
-      padding: 20px;
+      color: #94a3b8;
       text-align: center;
+      padding: 20px;
+      font-size: 18px;
     }
 
-    .double {
+    .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
     }
 
-    @keyframes fade {
+    @keyframes fadeUp {
       from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(14px);
       }
       to {
         opacity: 1;
@@ -121,79 +159,90 @@
     }
 
     @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 30px;
-      }
-
-      .double {
-        grid-template-columns: 1fr;
+      .top-pill {
+        font-size: 28px;
+        min-width: 100px;
       }
 
       .tab-btn {
         width: 100%;
+        font-size: 24px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
+  <div class="site">
+    <div class="top-title">
+      <div id="topPill" class="top-pill">I</div>
+    </div>
+
     <div class="hero">
-      <h1>НАЗВАНИЕ</h1>
-      <p>подзаголовок / описание</p>
+      <div class="hero-sub">Нажми на вкладку</div>
     </div>
 
     <div class="tabs">
-      <button class="tab-btn active" onclick="openTab('tab1', this)">Вкладка 1</button>
-      <button class="tab-btn" onclick="openTab('tab2', this)">Вкладка 2</button>
-      <button class="tab-btn" onclick="openTab('tab3', this)">Вкладка 3</button>
-      <button class="tab-btn" onclick="openTab('tab4', this)">Вкладка 4</button>
+      <button class="tab-btn active" data-title="I" onclick="openTab('tab1', this)">I</button>
+      <button class="tab-btn" data-title="II" onclick="openTab('tab2', this)">II</button>
+      <button class="tab-btn" data-title="III" onclick="openTab('tab3', this)">III</button>
     </div>
 
-    <div id="tab1" class="tab-content active">
-      <div class="card">
-        <h2>Заголовок блока</h2>
-        <p>Сюда вставляешь свой текст.</p>
-        <div class="placeholder">Место для картинки / схемы / текста</div>
-      </div>
-    </div>
-
-    <div id="tab2" class="tab-content">
-      <div class="card">
-        <h2>Другой раздел</h2>
-        <p>Сюда тоже вставляешь свой текст.</p>
-        <div class="double">
-          <div class="placeholder">Левый блок</div>
-          <div class="placeholder">Правый блок</div>
+    <div class="content-wrap">
+      <div id="tab1" class="tab-content active">
+        <div class="card">
+          <h2 class="section-title">Раздел I</h2>
+          <div class="placeholder">Поле для текста / изображения / схемы</div>
         </div>
       </div>
-    </div>
 
-    <div id="tab3" class="tab-content">
-      <div class="card">
-        <h2>Третий раздел</h2>
-        <div class="placeholder">Место под длинный текст или изображения</div>
+      <div id="tab2" class="tab-content">
+        <div class="card">
+          <h2 class="section-title">Раздел II</h2>
+          <div class="grid">
+            <div class="placeholder">Левое поле</div>
+            <div class="placeholder">Правое поле</div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div id="tab4" class="tab-content">
-      <div class="card">
-        <h2>Четвёртый раздел</h2>
-        <div class="placeholder">Любой контент сюда</div>
+      <div id="tab3" class="tab-content">
+        <div class="card">
+          <h2 class="section-title">Раздел III</h2>
+          <div class="placeholder">Большое поле для контента</div>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    function openTab(tabId, button) {
-      const tabs = document.querySelectorAll('.tab-content');
-      const buttons = document.querySelectorAll('.tab-btn');
+    const topPill = document.getElementById('topPill');
+    const buttons = document.querySelectorAll('.tab-btn');
+    const tabs = document.querySelectorAll('.tab-content');
 
+    function openTab(tabId, button) {
       tabs.forEach(tab => tab.classList.remove('active'));
       buttons.forEach(btn => btn.classList.remove('active'));
 
       document.getElementById(tabId).classList.add('active');
       button.classList.add('active');
+
+      topPill.classList.remove('show');
+
+      setTimeout(() => {
+        topPill.textContent = button.dataset.title;
+        topPill.classList.add('show');
+      }, 180);
     }
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        topPill.classList.add('show');
+      }, 200);
+    });
   </script>
 </body>
 </html>
