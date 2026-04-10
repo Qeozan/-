@@ -2,40 +2,198 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Template</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template Tabs</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #0a0f1f, #111827);
+      color: white;
+    }
+
+    .wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 42px;
+    }
+
+    .hero p {
+      margin: 0;
+      color: #9ca3af;
+      font-size: 16px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .tab-btn {
+      background: #1f2937;
+      color: white;
+      border: 1px solid #374151;
+      padding: 12px 22px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    .tab-btn:hover {
+      background: #2c3b52;
+      transform: translateY(-2px);
+    }
+
+    .tab-btn.active {
+      background: #2563eb;
+      border-color: #2563eb;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fade 0.25s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .card {
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid #2f3a4d;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 28px;
+    }
+
+    .placeholder {
+      min-height: 180px;
+      border: 2px dashed #4b5563;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9ca3af;
+      margin-top: 20px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .double {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .double {
+        grid-template-columns: 1fr;
+      }
+
+      .tab-btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="wrapper">
+    <div class="hero">
+      <h1>НАЗВАНИЕ</h1>
+      <p>подзаголовок / описание</p>
+    </div>
 
-<div class="container">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="openTab('tab1', this)">Вкладка 1</button>
+      <button class="tab-btn" onclick="openTab('tab2', this)">Вкладка 2</button>
+      <button class="tab-btn" onclick="openTab('tab3', this)">Вкладка 3</button>
+      <button class="tab-btn" onclick="openTab('tab4', this)">Вкладка 4</button>
+    </div>
 
-  <!-- Заголовок -->
-  <header class="header">
-    <h1>ЗАГОЛОВОК</h1>
-    <p>подзаголовок</p>
-  </header>
+    <div id="tab1" class="tab-content active">
+      <div class="card">
+        <h2>Заголовок блока</h2>
+        <p>Сюда вставляешь свой текст.</p>
+        <div class="placeholder">Место для картинки / схемы / текста</div>
+      </div>
+    </div>
 
-  <!-- Блок 1 -->
-  <section class="card">
-    <h2>РАЗДЕЛ 1</h2>
-    <p>текст...</p>
-    <img src="images/img1.png">
-  </section>
+    <div id="tab2" class="tab-content">
+      <div class="card">
+        <h2>Другой раздел</h2>
+        <p>Сюда тоже вставляешь свой текст.</p>
+        <div class="double">
+          <div class="placeholder">Левый блок</div>
+          <div class="placeholder">Правый блок</div>
+        </div>
+      </div>
+    </div>
 
-  <!-- Блок 2 -->
-  <section class="card">
-    <h2>РАЗДЕЛ 2</h2>
-    <p>текст...</p>
-    <img src="images/img2.png">
-  </section>
+    <div id="tab3" class="tab-content">
+      <div class="card">
+        <h2>Третий раздел</h2>
+        <div class="placeholder">Место под длинный текст или изображения</div>
+      </div>
+    </div>
 
-  <!-- Блок 3 -->
-  <section class="card">
-    <h2>РАЗДЕЛ 3</h2>
-    <p>текст...</p>
-  </section>
+    <div id="tab4" class="tab-content">
+      <div class="card">
+        <h2>Четвёртый раздел</h2>
+        <div class="placeholder">Любой контент сюда</div>
+      </div>
+    </div>
+  </div>
 
-</div>
+  <script>
+    function openTab(tabId, button) {
+      const tabs = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-btn');
 
+      tabs.forEach(tab => tab.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      button.classList.add('active');
+    }
+  </script>
 </body>
 </html>
